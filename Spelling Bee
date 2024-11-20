@@ -1,0 +1,43 @@
+# DO NOT REMOVE
+from get_word import get_word                 #
+from score import get_point_value               # 
+#################################################
+
+def spelling_bee():
+    print("Welcome to Spelling Bee!")
+    
+    # Get 7 letters from user
+    while True:
+        try:
+            letters = input("Enter your 7 letters, separated by commas:\n").replace(" ", "").upper().split(",")
+            if len(letters) == 7:
+                break
+            else:
+                print("Please enter exactly 7 letters.")
+        except EOFError:
+            print("Input not available. Please provide the input.")
+            return  # Exit the function if there's an EOF error
+
+    # Ask for the required letter
+    while True:
+        required_letter = input(f"Which of these 7 letters {letters} will be your required letter?\n").upper()
+        if required_letter in letters:
+            break
+        else:
+            print(f"{required_letter} is not an available letter. Please choose from the following: {letters}")
+
+    score = 0
+    used_words = []
+
+    while True:
+        word = get_word(letters, required_letter, used_words)
+
+        if word == "END":
+            break
+
+        used_words.append(word)
+        points = get_point_value(word, letters)
+        score += points
+
+    print(f"Your final score is {score}")
+spelling_bee() # DO NOT REMOVE
